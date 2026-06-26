@@ -1,0 +1,51 @@
+a.cart-page { padding: 3rem 1.5rem; }
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.cart-summary { color: rgba(34,34,34,0.75); max-width: 520px; }
+
+.cart-grid { display: grid; gap: 1.8rem; grid-template-columns: 2.2fr 1fr; }
+
+.cart-items { display: grid; gap: 1rem; }
+
+.cart-item { display: flex; gap: 1rem; padding: 1rem; border: 1px solid rgba(34,34,34,0.12); border-radius: 18px; background: rgba(255,255,255,0.96); }
+
+.cart-item-img { width: 128px; height: 128px; object-fit: cover; border-radius: 16px; }
+
+.cart-item-content { display: grid; gap: 0.75rem; width: 100%; }
+
+.cart-item-title { font-size: 1rem; font-weight: 700; }
+
+.cart-item-meta { font-size: 0.9rem; color: rgba(34,34,34,0.65); }
+
+.cart-item-price { font-weight: 700; }
+
+.cart-item-actions { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+
+.cart-item-actions button { padding: 0.4rem 0.75rem; border: 1px solid rgba(34,34,34,0.12); border-radius: 12px; background: white; cursor: pointer; }
+
+.remove-btn { color: #b12b2b; border-color: rgba(177,43,43,0.2); }
+
+.cart-summary-panel { display: flex; justify-content: flex-end; }
+
+.summary-box { width: 100%; max-width: 320px; border: 1px solid rgba(34,34,34,0.12); border-radius: 18px; padding: 1.5rem; background: rgba(255,255,255,0.98); }
+
+.summary-row { display: flex; justify-content: space-between; margin-bottom: 1rem; }
+
+.summary-row.total { font-weight: 700; font-size: 1.05rem; }
+
+.quote-form-wrapper {
+  margin-top: 1.5rem;
+  /* scrollIntoView se jo position ho, usme page thoda “niche shift” ho jaye */
+  scroll-margin-top: 120px;
+}
+
+@media (max-width: 1000px) {
+  .cart-grid { grid-template-columns: 1fr; }
+}

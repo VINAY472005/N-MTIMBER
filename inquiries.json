@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Test User",
+    "email": "test@example.com",
+    "phone": "1234567890",
+    "state": "N/A",
+    "product": "N/A",
+    "qty": "N/A",
+    "msg": "N/A",
+    "receivedAt": "2026-06-25T07:48:54.726Z"
+  },
+  {
+    "name": "Madhu",
+    "email": "vinay.darkrider45@gmail.com",
+    "phone": "9414361133",
+    "state": "Rajasthan",
+    "product": "Planks (फंटे)",
+    "qty": "200",
+    "msg": "8 pm",
+    "receivedAt": "2026-06-25T07:51:50.083Z"
+  },
+  {
+    "name": "Madhu Sharma",
+    "email": "vinay.darkrider45@gmail.com",
+    "phone": "9521812120",
+    "state": "Rajasthan",
+    "product": "Planks (फंटे)",
+    "qty": "200",
+    "msg": "8pm",
+    "receivedAt": "2026-06-25T12:16:13.536Z"
+  }
+]

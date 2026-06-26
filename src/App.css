@@ -1,0 +1,27 @@
+.app {
+  min-height: 100vh;
+}
+
+/* Navbar fixed hai, isliye har page ka content navbar ke neeche se start ho */
+.app-main {
+  padding-top: 68px;
+}
+
+
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  background: var(--wood-dark);
+  color: var(--grain);
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  padding: 1rem 1.5rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  max-width: 360px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  animation: slideIn 0.3s ease;
+  line-height: 1.5;
+}
