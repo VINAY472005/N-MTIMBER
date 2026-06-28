@@ -1,13 +1,11 @@
 import React, { useRef, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { Contact } from './WhyContact.jsx';
 import './CartPage.css';
 
 export default function CartPage({ cartItems, updateCartQty, removeFromCart, clearCart, showToast }) {
   const navigate = useNavigate();
-  const quoteFormRef = useRef(null);
-  const [showQuoteForm, setShowQuoteForm] = useState(false);
+
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.qty, 0);
   const totalPrice = cartItems.reduce((sum, item) => {
@@ -20,12 +18,15 @@ export default function CartPage({ cartItems, updateCartQty, removeFromCart, cle
       showToast('Your quote list is empty. Add a wood product first.');
       return;
     }
-    navigate('/quote');
-    showToast('Use the quote page controls to submit your request.');
+    navigate('/contact');
+    showToast('Please submit your inquiry on the contact page.');
   };
+
+
 
   return (
     <div className="page-frame cart-page">
+
       <div className="cart-header">
         <div>
           <div className="section-label brown">Quote Request</div>
@@ -77,28 +78,20 @@ export default function CartPage({ cartItems, updateCartQty, removeFromCart, cle
                 </div>
                 <button
                   className="btn-primary"
-                  onClick={() => {
-                    setShowQuoteForm(true);
-                    setTimeout(() => {
-                      quoteFormRef.current?.scrollIntoView({ behavior: 'smooth' });
-                    }, 0);
-                  }}
+                  onClick={handleCheckout}
                 >
-                  Request Quote
+                  Inquiry
                 </button>
+
 
               </div>
             </div>
           </div>
 
-          {showQuoteForm && (
-            <div ref={quoteFormRef} className="quote-form-wrapper">
-              <Contact showToast={showToast} cartItems={cartItems} showFormHeading={false} />
-            </div>
-          )}
-
         </>
       ) : (
+
+
         <div className="empty-state">
           <div className="empty-icon">🛒</div>
           <div className="empty-text">Your quote list is empty.</div>

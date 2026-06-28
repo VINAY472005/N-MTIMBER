@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { whyCards, states, productOptions } from './data.js';
 import './WhyContact.css';
 
-const CONTACT_EMAIL = 'vinay.official0000@gmail.com';
+// EmailJS config (from your EmailJS setup)
+const EMAILJS_SERVICE_ID = 'service_ztu8xrq';
+const EMAILJS_TEMPLATE_ID = 'template_nas63mi';
+const EMAILJS_PUBLIC_KEY = 'EhZe273dhPpTfAsUZ';
 
 /* ─── WHY US ─────────────────────────────────────────────── */
 export function WhyUs() {
@@ -70,12 +73,9 @@ export function Contact({ showToast, cartItems = [], showFormFirst = false, show
         const { latitude, longitude } = position.coords;
         try {
           const response = await fetch(
-            `/api/geocode?lat=${encodeURIComponent(latitude)}&lon=${encodeURIComponent(longitude)}`
+            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
           );
           const data = await response.json();
-          if (!response.ok)
-            throw new Error(data.error || 'Unable to reverse geocode location.');
-
           const locationText =
             data.display_name || `Lat: ${latitude.toFixed(5)}, Lon: ${longitude.toFixed(5)}`;
           setForm({
@@ -86,16 +86,13 @@ export function Contact({ showToast, cartItems = [], showFormFirst = false, show
           });
           showToast('Location detected successfully.');
         } catch (error) {
-          console.error('Location reverse geocode failed', error);
           setForm({
             ...form,
             location: `Lat: ${latitude.toFixed(5)}, Lon: ${longitude.toFixed(5)}`,
             geoLat: latitude.toString(),
             geoLng: longitude.toString(),
           });
-          showToast(
-            'Location found, but address lookup failed. Please check the location field.'
-          );
+          showToast('Location found, but address lookup failed. Please check the location field.');
         } finally {
           setIsDetectingLocation(false);
         }
@@ -128,24 +125,7 @@ export function Contact({ showToast, cartItems = [], showFormFirst = false, show
   const selectedProducts = Array.isArray(form.product) ? form.product : [form.product];
   const productValue = selectedProducts.filter(Boolean).join(', ') || 'N/A';
 
-  const buildMailtoUrl = () => {
-    const body = `Name: ${form.name}\nEmail: ${form.email || 'N/A'}\nPhone: ${form.phone}\nState/City: ${form.state || 'N/A'}\nDelivery Location: ${form.location || 'N/A'}\nProduct: ${productValue}\nQuantity: ${form.qty || 'N/A'}\nMessage: ${form.msg || 'N/A'}`;
-
-    return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-      'New Quote Request from N&MTIMBER Website'
-    )}&body=${encodeURIComponent(body)}`;
-  };
-
-  const fallbackToMailClient = () => {
-    const mailto = buildMailtoUrl();
-    window.location.href = mailto;
-    showToast('⚠ Backend unavailable. Opening email client so inquiry can still be sent.');
-    setFormStatus({
-      type: 'info',
-      text: 'Backend unavailable. Please send the inquiry from your email client.',
-    });
-  };
-
+  // ✅ FIXED: Only EmailJS - no backend, no mailto popup
   const handleSubmit = async () => {
     if (!form.name || !form.phone || !form.email) {
       showToast('⚠ Please fill your Name, Email & Phone number');
@@ -157,48 +137,44 @@ export function Contact({ showToast, cartItems = [], showFormFirst = false, show
     setFormStatus(null);
 
     try {
-      const response = await fetch('/api/inquiry', {
+      const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...form,
-          product: selectedProducts,
-          location: form.location,
-          geoLat: form.geoLat,
-          geoLng: form.geoLng,
+          service_id:  EMAILJS_SERVICE_ID,
+          template_id: EMAILJS_TEMPLATE_ID,
+          user_id:     EMAILJS_PUBLIC_KEY,
+          template_params: {
+            from_name: form.name,
+            email:     form.email,
+            phone:     form.phone,
+            state:     form.state    || 'N/A',
+            location:  form.location || 'N/A',
+            product:   productValue,
+            qty:       form.qty  || 'N/A',
+            message:   form.msg  || 'N/A',
+          },
         }),
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        const errorMessage = data?.error || '⚠ Unable to send inquiry. Please try again.';
-        showToast(errorMessage);
-        setFormStatus({ type: 'error', text: errorMessage });
-        setIsSubmitting(false);
-        return;
+      if (res.ok) {
+        const successMessage = '✓ Inquiry sent successfully. We will contact you shortly.';
+        showToast(successMessage);
+        setFormStatus({ type: 'success', text: successMessage });
+        setForm({
+          name: '', email: '', phone: '', state: '',
+          location: '', geoLat: '', geoLng: '',
+          product: [], qty: '', msg: '',
+        });
+        setUseCartProducts(false);
+        setTimeout(() => setFormStatus(null), 6000);
+      } else {
+        showToast('❌ Failed to send. Please call us directly!');
+        setFormStatus({ type: 'error', text: 'Failed to send. Please call us directly.' });
       }
-
-      const successMessage = '✓ Inquiry sent successfully. We will contact you shortly.';
-      showToast(successMessage);
-      setFormStatus({ type: 'success', text: successMessage });
-      setForm({
-        name: '',
-        email: '',
-        phone: '',
-        state: '',
-        location: '',
-        geoLat: '',
-        geoLng: '',
-        product: [],
-        qty: '',
-        msg: '',
-      });
-      setUseCartProducts(false);
-      setTimeout(() => setFormStatus(null), 6000);
-    } catch (error) {
-      console.error('Inquiry submit failed', error);
-      fallbackToMailClient();
+    } catch (err) {
+      showToast('❌ Network error. Please call us directly!');
+      setFormStatus({ type: 'error', text: 'Network error. Please call us directly.' });
     } finally {
       setIsSubmitting(false);
     }
@@ -231,9 +207,7 @@ export function Contact({ showToast, cartItems = [], showFormFirst = false, show
               <select className="form-select" value={form.state} onChange={setField('state')}>
                 <option value="">Select your state</option>
                 {states.map((s) => (
-                  <option key={s} value={s}>
-                    {s}
-                  </option>
+                  <option key={s} value={s}>{s}</option>
                 ))}
               </select>
             </div>
@@ -277,9 +251,7 @@ export function Contact({ showToast, cartItems = [], showFormFirst = false, show
               <>
                 <select multiple size={5} className="form-select" value={form.product} onChange={setField('product')}>
                   {productOptions.map((p) => (
-                    <option key={p} value={p}>
-                      {p}
-                    </option>
+                    <option key={p} value={p}>{p}</option>
                   ))}
                 </select>
                 <div className="form-hint">Hold Ctrl / Cmd to select multiple product options.</div>
@@ -319,4 +291,3 @@ export function Contact({ showToast, cartItems = [], showFormFirst = false, show
     </section>
   );
 }
-

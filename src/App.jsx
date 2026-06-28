@@ -127,11 +127,11 @@ export default function App() {
             }
           />
           <Route
-            path="/contact"
-            element={
-              <ContactPage />
-            }
-          />
+  path="/contact"
+  element={
+    <ContactPage showToast={showToast} cartItems={cartItems} />
+  }
+/>
           <Route
             path="/auth"
             element={

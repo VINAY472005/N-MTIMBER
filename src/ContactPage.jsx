@@ -1,7 +1,7 @@
 import React from 'react';
 import { Contact } from './WhyContact.jsx';
 
-export default function ContactPage() {
+export default function ContactPage({ showToast, cartItems }) {
   return (
     <div className="page-frame contact-page">
       <section className="contact-page-top">
@@ -14,9 +14,7 @@ export default function ContactPage() {
         </p>
       </section>
 
-      {/* Quote request form (submit inquiry) */}
-      <Contact showFormFirst />
+      <Contact showToast={showToast} cartItems={cartItems || []} showFormFirst />
     </div>
   );
 }
-
