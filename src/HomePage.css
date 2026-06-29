@@ -1,6 +1,6 @@
 .home-quickstart {
   padding: 5rem 2rem;
-  background: #f6ece0;
+  background: var(--green-50);
 }
 
 .home-quickstart-content {
@@ -21,11 +21,12 @@
 }
 
 .home-quick-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(2rem, 3vw, 3.2rem);
   line-height: 1.05;
   margin-bottom: 1rem;
   color: var(--wood-dark);
+  font-weight: 700;
 }
 
 .home-quick-text {
@@ -45,17 +46,18 @@
   gap: 1rem;
   align-items: center;
   background: var(--white);
-  border: 1px solid rgba(59,31,10,0.1);
+  border: 1px solid rgba(45,80,22,0.1);
   border-radius: 18px;
   padding: 1rem 1.2rem;
-  box-shadow: 0 18px 45px rgba(59,31,10,0.05);
+  box-shadow: 0 4px 16px rgba(45,80,22,0.06);
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s;
 }
 
 .home-cat-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 22px 52px rgba(59,31,10,0.12);
+  box-shadow: 0 12px 32px rgba(45,80,22,0.12);
+  border-color: rgba(90,138,60,0.4);
 }
 
 .home-cat-image {
@@ -63,7 +65,7 @@
   height: 90px;
   border-radius: 14px;
   overflow: hidden;
-  background: rgba(201,148,58,0.1);
+  background: var(--green-100);
   display: grid;
   place-items: center;
 }
@@ -82,17 +84,19 @@
 .home-cat-name {
   font-weight: 700;
   color: var(--wood-dark);
+  font-size: 0.95rem;
 }
 
 .home-cat-hindi {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--gold);
   opacity: 0.9;
 }
 
 .home-cat-count {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: var(--text-mid);
+  opacity: 0.7;
 }
 
 @media (max-width: 900px) {
@@ -100,11 +104,39 @@
     grid-template-columns: 1fr;
   }
   .home-cat-card {
-    grid-template-columns: 1fr;
-    text-align: left;
+    grid-template-columns: 90px 1fr;
   }
   .home-cat-image {
-    width: 100%;
-    height: 160px;
+    width: 90px;
+    height: 90px;
   }
 }
+
+.home-about-inline {
+  padding: 2.5rem 2rem 4rem;
+}
+
+.home-about-inline-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(46, 125, 50, 0.18);
+  border-radius: 18px;
+  padding: 1.7rem 1.6rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.home-about-inline-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.4rem, 2.4vw, 2.1rem);
+  line-height: 1.1;
+  color: var(--wood-dark);
+}
+
+.home-about-inline-text {
+  opacity: 0.8;
+  line-height: 1.8;
+  max-width: 70ch;
+}
+

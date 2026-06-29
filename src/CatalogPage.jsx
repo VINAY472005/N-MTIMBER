@@ -19,7 +19,7 @@ export default function CatalogPage({ showToast }) {
           <div className="section-label brown">Product Catalog</div>
           <h2 className="section-title dark">{categoryName}</h2>
           <p className="catalog-page-copy">
-            Browse products in this category and select an item to view details, request a quote, or begin the purchase process.
+            Browse products in this category and select an item to view details or begin the purchase process.
           </p>
         </div>
         <button className="btn-outline" onClick={() => navigate('/categories')}>

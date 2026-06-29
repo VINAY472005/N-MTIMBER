@@ -49,6 +49,23 @@ export default function HomePage({ showToast }) {
       </section>
 
       <WhyUs />
+
+      <section className="home-about-inline">
+        <div className="home-about-inline-inner">
+          <div className="section-label gold">About Us</div>
+          <h2 className="home-about-inline-title">
+            N&amp;MTIMBER <em>Business</em> &amp; Trust
+          </h2>
+          <p className="home-about-inline-text">
+            Premium B2B wood &amp; timber marketplace connecting mills with contractors,
+            builders, and manufacturers—so procurement stays fast and reliable.
+          </p>
+          <button className="btn-outline" onClick={() => navigate('/about')}>
+            Learn More →
+          </button>
+        </div>
+      </section>
     </>
   );
 }
+

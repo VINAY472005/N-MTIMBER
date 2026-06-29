@@ -40,7 +40,7 @@ a.cart-page { padding: 3rem 1.5rem; }
 
 .summary-row.total { font-weight: 700; font-size: 1.05rem; }
 
-.quote-form-wrapper {
+.cart-form-wrapper {
   margin-top: 1.5rem;
   /* scrollIntoView se jo position ho, usme page thoda “niche shift” ho jaye */
   scroll-margin-top: 120px;

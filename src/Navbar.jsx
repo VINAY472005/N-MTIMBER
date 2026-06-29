@@ -26,9 +26,8 @@ export default function Navbar({ cartCount }) {
   const links = [
     ['/',           'Home'],
     ['/categories', 'Categories'],
-    ['/catalog',    'Catalog'],
+    ['/about',      'About Us'],
     ['/contact',    'Contact'],
-    ['/quote',      `Quote${cartCount ? ` (${cartCount})` : ''}`],
   ];
 
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MSG)}`;

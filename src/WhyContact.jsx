@@ -238,9 +238,9 @@ export function Contact({ showToast, cartItems = [], showFormFirst = false, show
             <label className="form-label">Product Needed</label>
             {cartItems.length > 0 && (
               <label className="form-checkbox">
-                <input type="checkbox" checked={useCartProducts} onChange={toggleUseCartProducts} />
-                Use products from quote list ({cartItems.length} item{cartItems.length > 1 ? 's' : ''})
-              </label>
+                  <input type="checkbox" checked={useCartProducts} onChange={toggleUseCartProducts} />
+                  Use products from cart ({cartItems.length} item{cartItems.length > 1 ? 's' : ''})
+                </label>
             )}
 
             {useCartProducts ? (
@@ -278,13 +278,13 @@ export function Contact({ showToast, cartItems = [], showFormFirst = false, show
           </div>
 
           <button className="submit-btn" onClick={handleSubmit} disabled={isSubmitting}>
-            {isSubmitting ? 'Sending...' : 'Submit Quote Request →'}
+            {isSubmitting ? 'Sending...' : 'Submit Inquiry →'}
           </button>
 
           {formStatus && <div className={`form-status ${formStatus.type}`}>{formStatus.text}</div>}
 
           <div className="form-note">
-            Your quote request is sent to our team and will be delivered to your inbox.
+            Your inquiry is sent to our team and will be delivered to your inbox.
           </div>
         </div>
       </div>

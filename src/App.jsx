@@ -9,6 +9,7 @@ import CartPage      from './CartPage.jsx';
 import ContactPage   from './ContactPage.jsx';
 import AuthPage      from './AuthPage.jsx';
 import Footer        from './Footer.jsx';
+import AboutPage      from './AboutPage.jsx';
 import './App.css';
 
 export default function App() {
@@ -77,7 +78,7 @@ export default function App() {
       }
       return [...current, { ...product, qty }];
     });
-    showToast(`${product.name} added to quote list.`);
+    showToast(`${product.name} added to cart.`);
   };
 
   const updateCartQty = (id, qty) => {
@@ -115,7 +116,7 @@ export default function App() {
             element={<ProductPage showToast={showToast} addToCart={addToCart} />}
           />
           <Route
-            path="/quote"
+            path="/cart"
             element={
               <CartPage
                 cartItems={cartItems}
@@ -127,11 +128,10 @@ export default function App() {
             }
           />
           <Route
-  path="/contact"
-  element={
-    <ContactPage showToast={showToast} cartItems={cartItems} />
-  }
-/>
+            path="/contact"
+            element={<ContactPage showToast={showToast} cartItems={cartItems} />}
+          />
+          <Route path="/about" element={<AboutPage showToast={showToast} />} />
           <Route
             path="/auth"
             element={

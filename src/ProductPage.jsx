@@ -4,7 +4,8 @@ import { products } from './data.js';
 import './Catalog.css';
 import './ProductImageFix.css';
 
-export default function ProductPage({ showToast, addToCart }) {
+export default function ProductPage({ showToast, addToCart }) { // addToCart kept for compatibility
+
   const [qty, setQty] = useState(1);
   const { productId } = useParams();
   const navigate = useNavigate();
@@ -60,11 +61,18 @@ export default function ProductPage({ showToast, addToCart }) {
             </button>
           </div>
           <div className="product-action-row">
-            <button className="btn-primary" onClick={() => addToCart(product, qty)}>
-              Add to Quote
+            <button
+              className="btn-primary"
+              onClick={() => {
+                addToCart(product, qty);
+                navigate('/contact');
+                showToast('Inquiry page opened. Submit your requirements below.');
+              }}
+            >
+              Inquiry
             </button>
-            <button className="btn-outline" onClick={() => navigate('/quote')}>
-              View Quote
+            <button className="btn-outline" onClick={() => navigate('/cart')}>
+              View Cart
             </button>
           </div>
         </div>

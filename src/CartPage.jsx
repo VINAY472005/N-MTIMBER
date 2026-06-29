@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 
 import { useNavigate } from 'react-router-dom';
+
 import './CartPage.css';
 
 export default function CartPage({ cartItems, updateCartQty, removeFromCart, clearCart, showToast }) {
@@ -15,7 +16,7 @@ export default function CartPage({ cartItems, updateCartQty, removeFromCart, cle
 
   const handleCheckout = () => {
     if (!cartItems.length) {
-      showToast('Your quote list is empty. Add a wood product first.');
+      showToast('Your cart is empty. Add a wood product first.');
       return;
     }
     navigate('/contact');
@@ -29,12 +30,12 @@ export default function CartPage({ cartItems, updateCartQty, removeFromCart, cle
 
       <div className="cart-header">
         <div>
-          <div className="section-label brown">Quote Request</div>
-          <h2 className="section-title dark">Selected Wood Items</h2>
+          <div className="section-label brown">Cart</div>
+          <h2 className="section-title dark">Selected Items</h2>
           <p className="cart-summary">{totalItems} items selected across {cartItems.length} products.</p>
         </div>
-        <button className="btn-outline" onClick={clearCart} disabled={!cartItems.length}>
-          Clear Quote
+          <button className="btn-outline" onClick={clearCart} disabled={!cartItems.length}>
+          Clear
         </button>
       </div>
 
@@ -48,7 +49,7 @@ export default function CartPage({ cartItems, updateCartQty, removeFromCart, cle
                   <div className="cart-item-content">
                     <div className="cart-item-title">{item.name}</div>
                     <div className="cart-item-meta">{item.category} • {item.hindi}</div>
-                    <div className="cart-item-price">{item.price}</div>
+
                     <div className="cart-item-actions">
                       <button onClick={() => updateCartQty(item.id, item.qty - 1)} disabled={item.qty <= 1}>-</button>
                       <span>{item.qty}</span>
@@ -80,7 +81,7 @@ export default function CartPage({ cartItems, updateCartQty, removeFromCart, cle
                   className="btn-primary"
                   onClick={handleCheckout}
                 >
-                  Inquiry
+                  Contact
                 </button>
 
 
@@ -94,8 +95,10 @@ export default function CartPage({ cartItems, updateCartQty, removeFromCart, cle
 
         <div className="empty-state">
           <div className="empty-icon">🛒</div>
-          <div className="empty-text">Your quote list is empty.</div>
+          <div className="empty-text">Your inquiry list is empty.</div>
+
           <button className="btn-primary" onClick={() => navigate('/categories')}>
+
             Browse Categories
           </button>
         </div>

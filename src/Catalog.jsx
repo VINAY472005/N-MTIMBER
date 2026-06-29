@@ -57,7 +57,6 @@ export default function Catalog({ activeCat, showToast }) {
                   <div className="prod-spec">✓ {p.spec2}</div>
                 </div>
                 <div className="prod-footer">
-                  <div className="prod-price">{p.price}</div>
                   <button
                     className="inquire-btn"
                     onClick={() => navigate(`/product/${p.id}`)}

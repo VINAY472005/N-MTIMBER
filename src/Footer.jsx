@@ -50,7 +50,14 @@ export default function Footer() {
           <ul className="footer-links">
             {['About Us','Our Mill','Quality Standards','Delivery Policy',
               'Bulk Orders','Partner With Us','Contact']
-              .map((l) => <li key={l}><a href="#">{l}</a></li>)}
+              .map((l) => {
+                const href = l === 'About Us' ? '/about' : l === 'Contact' ? '/contact' : '#';
+                return (
+                  <li key={l}>
+                    <a href={href}>{l}</a>
+                  </li>
+                );
+              })}
           </ul>
         </div>
       </div>
