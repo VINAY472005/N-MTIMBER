@@ -2,66 +2,99 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
-export default function Navbar({ cartCount, user, logoutUser }) {
-  const navigate = useNavigate();
-  const location = useLocation();
+const WHATSAPP_NUMBER = '919610377582';
+const WHATSAPP_MSG    = 'Hello! I am interested in N&M Timber products. Please share more details.';
+
+export default function Navbar({ cartCount }) {
+  const navigate  = useNavigate();
+  const location  = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
-  
+  const [menuOpen,   setMenuOpen]   = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
-      // Show logo after scrolling 100px down on contact page
       const isContactPage = location.pathname === '/contact';
-      if (isContactPage) {
-        setIsScrolled(window.scrollY > 100);
-      } else {
-        setIsScrolled(true);
-      }
+      setIsScrolled(isContactPage ? window.scrollY > 100 : true);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname]);
 
+  // Close menu on route change
+  useEffect(() => { setMenuOpen(false); }, [location.pathname]);
+
   const links = [
-    ['/', 'Home'],
+    ['/',           'Home'],
     ['/categories', 'Categories'],
-    ['/catalog', 'Catalog'],
-    ['/contact', 'Contact'],
-    ['/quote', `Quote${cartCount ? ` (${cartCount})` : ''}`],
+    ['/catalog',    'Catalog'],
+    ['/contact',    'Contact'],
+    ['/quote',      `Quote${cartCount ? ` (${cartCount})` : ''}`],
   ];
 
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MSG)}`;
+
   return (
-    <nav className="navbar">
-      <div className={`nav-logo ${isScrolled ? 'visible' : 'hidden'}`} onClick={() => navigate('/')}>N&MTIMBER</div>
+    <>
+      <nav className="navbar">
+        {/* Logo */}
+        <div
+          className={`nav-logo ${isScrolled ? 'visible' : 'hidden'}`}
+          onClick={() => navigate('/')}
+        >
+          N&MTIMBER
+        </div>
 
-      <ul className="nav-links">
-        {links.map(([path, label]) => (
-          <li key={path}>
-            <a onClick={() => navigate(path)}>{label}</a>
-          </li>
-        ))}
-      </ul>
+        {/* Desktop links */}
+        <ul className="nav-links">
+          {links.map(([path, label]) => (
+            <li key={path}>
+              <a
+                className={location.pathname === path ? 'active' : ''}
+                onClick={() => navigate(path)}
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
 
-      <div className="nav-actions">
-        {user ? (
-          <div className="nav-user">
-            <span className="nav-user-label">Hi, {user.name || user.email}</span>
-            <button
-              className="nav-logout"
-              onClick={() => {
-                logoutUser();
-                navigate('/');
-              }}
-            >
-              Logout
-            </button>
-          </div>
-        ) : (
-          <button className="nav-cta" onClick={() => navigate('/auth')}>
-            Login
-          </button>
-        )}
-      </div>
-    </nav>
+        {/* Desktop WhatsApp button */}
+        <div className="nav-actions">
+          <a className="nav-whatsapp-btn" href={whatsappUrl} target="_blank" rel="noreferrer">
+            <span>💬</span> WhatsApp
+          </a>
+        </div>
+
+        {/* Hamburger — mobile only */}
+        <button
+          className="hamburger"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          {menuOpen ? '✕' : '☰'}
+        </button>
+      </nav>
+
+      {/* Mobile Drawer */}
+      {menuOpen && (
+        <div className="mobile-drawer">
+          <ul className="mobile-links">
+            {links.map(([path, label]) => (
+              <li key={path}>
+                <a
+                  className={location.pathname === path ? 'active' : ''}
+                  onClick={() => navigate(path)}
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a className="mobile-whatsapp-btn" href={whatsappUrl} target="_blank" rel="noreferrer">
+            💬 Chat on WhatsApp
+          </a>
+        </div>
+      )}
+    </>
   );
 }
