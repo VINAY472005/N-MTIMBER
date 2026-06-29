@@ -56,12 +56,38 @@ export default function HomePage({ showToast }) {
           <h2 className="home-about-inline-title">
             N&amp;MTIMBER <em>Business</em> &amp; Trust
           </h2>
+
           <p className="home-about-inline-text">
-            Premium B2B wood &amp; timber marketplace connecting mills with contractors,
-            builders, and manufacturers—so procurement stays fast and reliable.
+            We are a premium B2B wood &amp; timber marketplace connecting mills to contractors,
+            builders, and manufacturers. Our focus is to make procurement simple, fast, and
+            reliable—so your project never stalls.
           </p>
-          <button className="btn-outline" onClick={() => navigate('/about')}>
-            Learn More →
+
+          <div className="home-about-inline-grid">
+            <div className="home-about-inline-card">
+              <div className="home-about-inline-card-title">Who we help</div>
+              <ul className="home-about-inline-list">
+                <li>Contractors &amp; civil contractors</li>
+                <li>Builders &amp; developers</li>
+                <li>Manufacturers &amp; furniture units</li>
+                <li>Retail wholesalers needing bulk supply</li>
+              </ul>
+            </div>
+
+            <div className="home-about-inline-card">
+              <div className="home-about-inline-card-title">What we offer</div>
+              <ul className="home-about-inline-list">
+                <li>Planks / Fante (फंटे)</li>
+                <li>Gutke / Logs (गुटके)</li>
+                <li>Plywood panels</li>
+                <li>Furniture parts</li>
+                <li>Flooring wood, raw timber &amp; hardware</li>
+              </ul>
+            </div>
+          </div>
+
+          <button className="btn-outline" onClick={() => navigate('/contact')}>
+            Go to Contact →
           </button>
         </div>
       </section>

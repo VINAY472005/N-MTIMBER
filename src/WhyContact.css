@@ -29,7 +29,15 @@
 .contact-section {
   padding: 5rem;
   background: linear-gradient(135deg, var(--wood-dark), var(--wood-mid));
+  color: var(--grain);
 }
+
+/* Ensure text stays readable when navigating to Contact */
+#contact,
+#contact * {
+  color: inherit;
+}
+
 
 .contact-grid {
   display: grid;
