@@ -5,16 +5,16 @@
 }
 
 :root {
-  --wood-dark: #3B1F0A;
-  --wood-mid: #6B3A1F;
-  --wood-warm: #A0522D;
-  --wood-light: #C8874A;
-  --grain: #E8C99A;
-  --cream: #FAF4EA;
-  --gold: #C9943A;
+  --wood-dark: #248f22;
+  --wood-mid: #50ba33;
+  --wood-warm: #36ad42;
+  --wood-light: #7dad7e;
+  --grain: #000000;
+  --cream: #000000;
+  --gold: #3ba55b;
   --text-dark: #1A0A00;
-  --text-mid: #5C3317;
-  --white: #FFFDF9;
+  --text-mid: #2da152;
+  --white: #47c05b;
 }
 
 html {
